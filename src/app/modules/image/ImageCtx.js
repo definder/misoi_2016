@@ -15,8 +15,13 @@ export default class ImageCtx{
         this.convas.height = height;
     }
 
-    putImage(){
-        this.ctx.putImageData(this.imageData, 0, 0);
+    putImage(imageCtxData = null){
+        if(!imageCtxData){
+            this.ctx.putImageData(this.imageData, 0, 0);
+        }
+        else{
+            this.ctx.putImageData(imageCtxData, 0, 0);
+        }
         this.areaElement.appendChild(this.convas);
     }
 }
