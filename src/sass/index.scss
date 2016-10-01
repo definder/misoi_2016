@@ -20,7 +20,6 @@ img {
   overflow-x: auto;
 }
 
-
 .but {
   width: 200px;
   font-size: 11px;
@@ -63,9 +62,7 @@ img {
 }
 
 @media all and (min-width: 800px) {
-  .main    { flex: 3 0px; }
   .aside-1 { order: 1; }
-  .main    { order: 2; }
-  .aside-2 { order: 3; }
-  .footer  { order: 4; }
+  .aside-2 { order: 2; }
+  .footer  { order: 3; }
 }
