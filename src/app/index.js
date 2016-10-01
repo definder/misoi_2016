@@ -8,4 +8,5 @@ document.addEventListener("DOMContentLoaded", event => {
         var image = new ImageCtx('convas','target', 200, 300);
         image.putImage();
     }, false);
+
 });
