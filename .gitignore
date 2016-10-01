@@ -1,2 +1,5 @@
 .gitignore
 .idea/
+node_modules/
+public/
+.env

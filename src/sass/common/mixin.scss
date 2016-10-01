@@ -1,0 +1,20 @@
+@mixin wrapper() {
+  @media ( min-width: 1600px ) {
+    max-width: 1600px;
+  }
+  @media (min-width: 1440px) and (max-width: 1599px){
+    max-width: 1440px;
+  }
+  @media (min-width: 1220px) and (max-width: 1439px){
+    max-width: 1220px;
+  }
+  @media (min-width: 960px)and (max-width: 1219px){
+    max-width: 960px;
+  }
+  @media (max-width: 959px){
+    max-width: 740px;
+  }
+  width: 100%;
+  padding: 0 10px;
+  margin: 0 auto;
+}
