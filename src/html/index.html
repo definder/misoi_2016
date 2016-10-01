@@ -10,6 +10,26 @@
 </head>
 <body>
 <div id="app">
+    <div id="page-wrapper">
+
+        <h1>Image File Reader</h1>
+        <div>
+            Select an image file:
+            <input type="file" id="fileInput">
+        </div>
+        <div id="fileDisplayArea"></div>
+
+    </div>
+    <p>Выберите метод фильтрации:</p>
+    <select>
+        <option value="Pryuita">Приюта</option>
+        <option value="Sobel">Собеля</option>
+        <option value="Median">Медианный</option>
+        <option value="Threshold">Пороговый</option>
+        <option value="Bradley">Брэдли</option>
+        <option value="Otsu">Отсу</option>
+    </select>
+    <button class="but">Выполнить</button>
 
 </div>
 </body>
