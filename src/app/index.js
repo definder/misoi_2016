@@ -1,4 +1,5 @@
 import ImageCtx from './modules/image/ImageCtx';
+import Pryuita from './modules/filter/methods/Pryuita';
 import Front from './front/index';
 
 document.addEventListener("DOMContentLoaded", event => {
@@ -6,7 +7,8 @@ document.addEventListener("DOMContentLoaded", event => {
     var el = document.getElementById('btn');
     el.addEventListener('click',()=>{
         var image = new ImageCtx('convas','target', 200, 300);
-        image.putImage();
+        var pr = new Pryuita(image.imageData);
+        image.putImage(pr.filter());
     }, false);
 
 });
