@@ -1,10 +1,8 @@
 @import "modules/reset";
 
-#page-wrapper {
+.page-wrapper {
   width: 600px;
   background: #FFF;
-  padding: 1em;
-  margin: 1em auto;
   min-height: 300px;
   border-top: 5px solid #69c773;
   box-shadow: 0 2px 10px rgba(0,0,0,0.8);
@@ -44,19 +42,19 @@ img {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-
+  justify-content: space-between;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
-
   font-weight: bold;
   text-align: center;
+  width: 1300px;
+  margin: 0 auto;
 }
 
-.wrapper > * {
-  padding: 10px;
-  flex: 1 100%;
+.footer {
+  width: 1300px;
+  margin: 0 auto;
 }
-
 @media all and (min-width: 600px) {
   .aside { flex: 1 auto; }
 }
