@@ -10,9 +10,34 @@
 </head>
 <body>
 <div id="app">
-    <img src="/assets/img/persik-title.jpg" alt="persik" id="target">
-    <div id="convas">
+    <div class="flex_parent">
+        <div class="flex_child">
+            <div id="page-wrapper">
 
+                <div>
+                    Select an image file:
+                    <input type="file" id="fileInput">
+                </div>
+                <div id="fileDisplayArea"></div>
+
+            </div>
+        </div>
+        <div class="flex_child"><div id="convas"></div></div>
+    </div>
+    <div class="wrap">
+        <p>Выберите метод фильтрации:</p>
+        <div id="mainselection">
+            <select>
+                <option>Select your methods</option>
+                <option value="Pryuita">Приюта</option>
+                <option value="Sobel">Собеля</option>
+                <option value="Median">Медианный</option>
+                <option value="Threshold">Пороговый</option>
+                <option value="Bradley">Брэдли</option>
+                <option value="Otsu">Отсу</option>
+            </select>
+        </div>
+        <button class="but">Выполнить</button>
     </div>
 </div>
 </body>

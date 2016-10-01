@@ -9,6 +9,7 @@ export default class Pryuita extends FilterInterface{
     filter(){
         var {imageData} = this;
         var pixeles = imageData.data;
+        console.log(pixeles);
         return imageData;
     }
 
