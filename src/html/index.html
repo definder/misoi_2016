@@ -10,35 +10,33 @@
 </head>
 <body>
 <div id="app">
-    <div class="flex_parent">
-        <div class="flex_child">
+    <div class="wrapper">
+        <aside class="aside aside-1">
             <div id="page-wrapper">
-
                 <div>
                     Select an image file:
                     <input type="file" id="fileInput">
                 </div>
                 <div id="fileDisplayArea"></div>
-
             </div>
-        </div>
-        <div class="flex_child"><div id="convas"></div></div>
+        </aside>
+        <aside class="aside aside-2"> <div class="flex_child"><div id="convas"></div></div></aside>
+        <footer class="footer">
+            <p>Выберите метод фильтрации:</p>
+            <div id="mainselection">
+                <select>
+                    <option>Select your methods</option>
+                    <option value="Pryuita">Приюта</option>
+                    <option value="Sobel">Собеля</option>
+                    <option value="Median">Медианный</option>
+                    <option value="Threshold">Пороговый</option>
+                    <option value="Bradley">Брэдли</option>
+                    <option value="Otsu">Отсу</option>
+                </select>
+                <button id="btn" class="btn">Выполнить</button>
+        </footer>
     </div>
-    <div class="wrap">
-        <p>Выберите метод фильтрации:</p>
-        <div id="mainselection">
-            <select>
-                <option>Select your methods</option>
-                <option value="Pryuita">Приюта</option>
-                <option value="Sobel">Собеля</option>
-                <option value="Median">Медианный</option>
-                <option value="Threshold">Пороговый</option>
-                <option value="Bradley">Брэдли</option>
-                <option value="Otsu">Отсу</option>
-            </select>
-        </div>
-        <button class="but">Выполнить</button>
-    </div>
+</div>
 </div>
 </body>
 </html>
