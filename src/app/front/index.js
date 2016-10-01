@@ -1,10 +1,7 @@
 export default function () {
-    var FileReader = require('filereader');
-    var jquery = require('jquery');
 
     var fileInput = document.getElementById('fileInput');
     var fileDisplayArea = document.getElementById('fileDisplayArea');
-
 
     fileInput.addEventListener('change', function (e) {
         var file = fileInput.files[0];
@@ -15,12 +12,11 @@ export default function () {
 
             reader.onload = function (e) {
                 fileDisplayArea.innerHTML = "";
-
                 var img = new Image();
                 img.src = reader.result;
-                console.log(1);
+                img.id = 'target';
                 fileDisplayArea.appendChild(img);
-            }
+            };
 
             reader.readAsDataURL(file);
         } else {
