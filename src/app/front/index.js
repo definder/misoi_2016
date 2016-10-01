@@ -1,20 +1,19 @@
-var FileReader = require('filereader');
-var jquery = require('jquery');
-
-window.onload = function() {
+export default function () {
+    var FileReader = require('filereader');
+    var jquery = require('jquery');
 
     var fileInput = document.getElementById('fileInput');
     var fileDisplayArea = document.getElementById('fileDisplayArea');
 
 
-    fileInput.addEventListener('change', function(e) {
+    fileInput.addEventListener('change', function (e) {
         var file = fileInput.files[0];
         var imageType = /image.*/;
 
         if (file.type.match(imageType)) {
             var reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 fileDisplayArea.innerHTML = "";
 
                 var img = new Image();
@@ -24,10 +23,8 @@ window.onload = function() {
             }
 
             reader.readAsDataURL(file);
-        } else
-        {
+        } else {
             fileDisplayArea.innerHTML = "File not supported!"
         }
     });
-
-};
+}
