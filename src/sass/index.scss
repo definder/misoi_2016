@@ -20,7 +20,7 @@ img {
   overflow-x: auto;
 }
 
-.but {
+.btn {
   width: 200px;
   font-size: 11px;
   color: white;
@@ -32,8 +32,8 @@ img {
   transition: 0.2s;
   border: none;
 }
-.but:hover { background: rgb(53, 167, 110); }
-.but:active {
+.btn:hover { background: rgb(53, 167, 110); }
+.btn:active {
   background: rgb(33,147,90);
   box-shadow: 0 3px rgb(33,147,90) inset;
 }
