@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", event => {
     var el = document.getElementById('btn');
     el.addEventListener('click',()=>{
         console.log(document.getElementById('mainselection').value);
-        var image = new ImageCtx('convas','target', 200, 300);
+        var image = new ImageCtx('convas','target');
         var filteringImage;
         switch (document.getElementById('mainselection').value){
             case 'null':
