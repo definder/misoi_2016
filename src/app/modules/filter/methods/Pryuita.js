@@ -1,10 +1,10 @@
 import FilterInterface from '../interface/FilterInterface';
 
-export default class Pryuita extends FilterInterface {
+export default class Median extends FilterInterface {
 
     constructor(imageData) {
         super(imageData);
-        this.sobelData = [];
+        this.pryuitaData = [];
     }
 
     initMatrix() {
@@ -52,13 +52,13 @@ export default class Pryuita extends FilterInterface {
                     (matrix.gy[2][2] * pixelAt(x + 1, y + 1))
                 );
                 var magnitude = Math.sqrt((pixelX * pixelX) + (pixelY * pixelY));
-                this.sobelData.push(magnitude, magnitude, magnitude, 255);
+                this.pryuitaData.push(magnitude, magnitude, magnitude, 255);
             }
         }
-        var clampedArray = this.sobelData;
+        var clampedArray = this.pryuitaData;
 
         if (typeof Uint8ClampedArray === 'function') {
-            clampedArray = new Uint8ClampedArray(this.sobelData);
+            clampedArray = new Uint8ClampedArray(this.pryuitaData);
         }
 
         return new ImageData(clampedArray, imageData.width, imageData.height);
