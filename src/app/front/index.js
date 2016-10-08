@@ -18,7 +18,6 @@ export default function(){
                 img.id = 'target';
                 fileDisplayArea.appendChild(img);
             };
-
             reader.readAsDataURL(file);
         } else
         {
