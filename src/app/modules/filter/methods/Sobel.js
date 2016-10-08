@@ -1,31 +1,43 @@
 import FilterInterface from '../interface/FilterInterface';
 
-export default class Pryuita extends FilterInterface {
+export default class Sobel extends FilterInterface {
 
     constructor(imageData) {
         super(imageData);
         this.sobelData = [];
+        this.grayscaleData = [];
     }
 
     initMatrix() {
         this.matrix = {
             gx: [
                 [-1, 0, 1],
-                [-1, 0, 1],
+                [-2, 0, 2],
                 [-1, 0, 1],
             ],
             gy: [
-                [-1, -1, -1],
+                [-1, -2, -1],
                 [0, 0, 0],
-                [1, 1, 1],
+                [1, 2, 1],
             ]
         };
     }
 
     filter() {
         var {imageData, matrix} = this;
+        var pixelAt = this.bindPixel(imageData.data);
         var x, y;
-        var pixelAt = this.bindPixel(this.imageData.data);
+        for (y = 0; y < imageData.height; y++) {
+            for (x = 0; x < imageData.width; x++) {
+                var r = pixelAt(x, y, 0);
+                var g = pixelAt(x, y, 1);
+                var b = pixelAt(x, y, 2);
+
+                var avg = (r + g + b) / 3;
+                this.grayscaleData.push(avg, avg, avg, 255);
+            }
+        }
+        pixelAt = this.bindPixel(this.grayscaleData);
         for (y = 0; y < imageData.height; y++) {
             for (x = 0; x < imageData.width; x++) {
                 var pixelX = (
