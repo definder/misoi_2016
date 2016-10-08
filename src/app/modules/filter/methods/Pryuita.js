@@ -1,6 +1,6 @@
 import FilterInterface from '../interface/FilterInterface';
 
-export default class Pryuita extends FilterInterface {
+export default class Median extends FilterInterface {
 
     constructor(imageData) {
         super(imageData);

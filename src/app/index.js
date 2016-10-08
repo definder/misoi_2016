@@ -1,5 +1,6 @@
 import ImageCtx from './modules/image/ImageCtx';
 import Pryuita from './modules/filter/methods/Pryuita';
+import Median from './modules/filter/methods/Median';
 import Front from './front/index';
 
 document.addEventListener("DOMContentLoaded", event => {
