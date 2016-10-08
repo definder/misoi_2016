@@ -1,10 +1,8 @@
 @import "modules/reset";
 
-#page-wrapper {
+.page-wrapper {
   width: 600px;
   background: #FFF;
-  padding: 1em;
-  margin: 1em auto;
   min-height: 300px;
   border-top: 5px solid #69c773;
   box-shadow: 0 2px 10px rgba(0,0,0,0.8);
@@ -20,30 +18,7 @@ img {
   overflow-x: auto;
 }
 
-#mainselection select {
-  border: 0;
-  color: #EEE;
-  background: transparent;
-  font-size: 15px;
-  font-weight: bold;
-  padding: 2px 10px;
-  width: 378px;
-  *width: 350px;
-  *background: rgb(64,199,129);
-  -webkit-appearance: none;
-}
-
-#mainselection {
-  width:370px;
-  -moz-border-radius: 9px 9px 9px 9px;
-  -webkit-border-radius: 9px 9px 9px 9px;
-  border-radius: 9px 9px 9px 9px;
-  box-shadow: 1px 1px 11px #330033;
-  background:  rgb(64,199,129) url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll 319px center;
-}
-
 .btn {
-  margin-top:10px;
   width: 200px;
   font-size: 11px;
   color: white;
@@ -55,23 +30,37 @@ img {
   transition: 0.2s;
   border: none;
 }
-.but:hover { background: rgb(53, 167, 110); }
-.but:active {
+.btn:hover { background: rgb(53, 167, 110); }
+.btn:active {
   background: rgb(33,147,90);
   box-shadow: 0 3px rgb(33,147,90) inset;
 }
 
-.wrap{
-  margin: 0 40%;
-}
-
-.flex_parent{
+.wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
-  height: 400px;
-  width: 1600px;
-  margin: auto;
+  justify-content: space-between;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  font-weight: bold;
+  text-align: center;
+  width: 1300px;
+  margin: 0 auto;
 }
 
-.flex_child{
-  flex:1 1 400px;
+.footer {
+  width: 1300px;
+  margin: 0 auto;
+}
+@media all and (min-width: 600px) {
+  .aside { flex: 1 auto; }
+}
+
+@media all and (min-width: 800px) {
+  .aside-1 { order: 1; }
+  .aside-2 { order: 2; }
+  .footer  { order: 3; }
 }
