@@ -10,33 +10,32 @@
 </head>
 <body>
 <div id="app">
-    <div class="wrapper">
-        <aside class="aside aside-1">
-            <div id="page-wrapper">
-                <div>
-                    Select an image file:
-                    <input type="file" id="fileInput">
-                </div>
-                <div id="fileDisplayArea"></div>
+    <div class="container">
+        <section class="s-top">
+            <div class="b-img-select">
+                <label class="b-img-select__label" for="fileInput">Select an image file:</label>
+                <input class="b-img-select__btn" type="file" id="fileInput">
             </div>
-        </aside>
-        <aside class="aside aside-2"> <div class="flex_child"><div id="convas"></div></div></aside>
-        <footer class="footer">
-            <p>Выберите метод фильтрации:</p>
+            <div id="fileDisplayArea" class="b-img-wrapper"></div>
+        </section>
+        <section class="s-middle">
+            <div class="s-middle__canvas" id="convas"></div>
+        </section>
+        <section class="s-panel">
+            <p class="s-panel__text">Выберите метод фильтрации:</p>
             <div>
-                <select id="mainselection" name="mainselection">
-                    <option value="null">Select your methods</option>
-                    <option value="Pryuita">Приюта</option>
-                    <option value="Sobel">Собеля</option>
-                    <option value="Median">Медианный</option>
-                    <option value="GammaCorrection">Гамма корекция</option>
-                    <option value="Bradley">Брэдли</option>
-                    <option value="Otsu">Отсу</option>
+                <select class="s-panel__select" id="mainselection" name="mainselection">
+                    <option class="s-panel__option" value="null">-</option>
+                    <option class="s-panel__option" value="Pryuita">Приюта</option>
+                    <option class="s-panel__option" value="Sobel">Собеля</option>
+                    <option class="s-panel__option" value="Median">Медианный</option>
+                    <option class="s-panel__option" value="Threshold">Пороговый</option>
+                    <option class="s-panel__option" value="Bradley">Брэдли</option>
+                    <option class="s-panel__option" value="Otsu">Отсу</option>
                 </select>
-                <button id="btn" class="btn">Выполнить</button>
-
+                <button id="btn" class="s-panel__btn">Выполнить</button>
             </div>
-        </footer>
+        </section>
     </div>
 </div>
 </body>
