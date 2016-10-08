@@ -11,15 +11,16 @@ export default class Otsu extends FilterInterface {
 
     filter() {
         var {imageData} = this;
+        var data = imageData.data;
         var brightness;
         var brightness256Val;
         var histArray = Array.apply(null, new Array(256)).map(Number.prototype.valueOf,0);
-        for (var i=0; i< imageData.data.length; i+=4){
-            brightness = this.RED_INTENCITY_COEF*imageData.data[i] + this.GREEN_INTENCITY_COEF * imageData.data[i+1]+this.BLUE_INTENCITY_COEF * imageData.data[i+2];
+        for (var i=0; i< data.length; i+=4){
+            brightness = this.RED_INTENCITY_COEF*data[i] + this.GREEN_INTENCITY_COEF * data[i+1]+this.BLUE_INTENCITY_COEF * data[i+2];
             brightness256Val = Math.floor(brightness);
             histArray[brightness256Val]+=1;
         }
-        var total = this.imageData.width + this.imageData.height;
+        var total = imageData.width * imageData.height;
         var sum = 0;
         for (i= 1; i<256; i++)
             sum+= i * histArray[i];
@@ -52,7 +53,7 @@ export default class Otsu extends FilterInterface {
             }
         }
         var threshold = (threshold1+threshold2) / 2.0;
-        var data = imageData.data;
+        data = imageData.data;
         var val;
         for (i=0; i<data.length; i+=4){
             brightness = this.RED_INTENCITY_COEF*data[i] + this.GREEN_INTENCITY_COEF * data[i+1]+this.BLUE_INTENCITY_COEF * data[i+2];
