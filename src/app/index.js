@@ -1,6 +1,7 @@
 import ImageCtx from './modules/image/ImageCtx';
 import Pryuita from './modules/filter/methods/Pryuita';
 import Sobel from './modules/filter/methods/Sobel';
+import Median from './modules/filter/methods/Median';
 import Front from './front/index';
 
 document.addEventListener("DOMContentLoaded", event => {
@@ -19,6 +20,9 @@ document.addEventListener("DOMContentLoaded", event => {
                 break;
             case 'Sobel':
                 filteringImage = new Sobel(image.imageData);
+                break;
+            case 'Median':
+                filteringImage = new Median(image.imageData);
                 break;
         }
         image.putImage(filteringImage.filter());
