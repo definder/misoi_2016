@@ -1,13 +1,13 @@
 import ImageCtx from './modules/image/ImageCtx';
 import Pryuita from './modules/filter/methods/Pryuita';
 import Sobel from './modules/filter/methods/Sobel';
+import GammaCorrection from './modules/filter/methods/GammaCorrection';
 import Front from './front/index';
 
 document.addEventListener("DOMContentLoaded", event => {
     Front();
     var el = document.getElementById('btn');
     el.addEventListener('click',()=>{
-        console.log(document.getElementById('mainselection').value);
         var image = new ImageCtx('convas','target');
         var filteringImage;
         switch (document.getElementById('mainselection').value){
@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", event => {
                 break;
             case 'Sobel':
                 filteringImage = new Sobel(image.imageData);
+                break;
+            case 'GammaCorrection':
+                filteringImage = new GammaCorrection(image.imageData, 1.2, 0.8);
                 break;
         }
         image.putImage(filteringImage.filter());
