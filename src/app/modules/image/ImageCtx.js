@@ -1,6 +1,6 @@
 export default class ImageCtx{
 
-    constructor(areaElementId, imgId, height, width){
+    constructor(areaElementId, imgId){
         this.imgElement = document.getElementById(imgId);
         this.initConvas(this.imgElement.width, this.imgElement.height);
         this.areaElement = document.getElementById(areaElementId);
