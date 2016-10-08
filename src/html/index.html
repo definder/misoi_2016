@@ -11,29 +11,32 @@
 <body>
 <div id="app">
     <div class="wrapper">
-            <div class="page-wrapper">
+        <aside class="aside aside-1">
+            <div id="page-wrapper">
                 <div>
                     Select an image file:
                     <input type="file" id="fileInput">
                 </div>
                 <div id="fileDisplayArea"></div>
             </div>
-      <div id="convas"></div>
-    </div>
-    <div class="footer">
-        <p>Выберите метод фильтрации:</p>
-        <div id="mainselection">
-            <select>
-                <option>Select your methods</option>
-                <option value="Pryuita">Приюта</option>
-                <option value="Sobel">Собеля</option>
-                <option value="Median">Медианный</option>
-                <option value="Threshold">Пороговый</option>
-                <option value="Bradley" id="bradley">Брэдли</option>
-                <option value="Otsu" id="otsu">Отсу</option>
-            </select>
-            <button id="btn" class="btn">Выполнить</button>
-        </div>
+        </aside>
+        <aside class="aside aside-2"> <div class="flex_child"><div id="convas"></div></div></aside>
+        <footer class="footer">
+            <p>Выберите метод фильтрации:</p>
+            <div>
+                <select id="mainselection" name="mainselection">
+                    <option value="null">Select your methods</option>
+                    <option value="Pryuita">Приюта</option>
+                    <option value="Sobel">Собеля</option>
+                    <option value="Median">Медианный</option>
+                    <option value="Threshold">Пороговый</option>
+                    <option value="Bradley">Брэдли</option>
+                    <option value="Otsu">Отсу</option>
+                </select>
+                <button id="btn" class="btn">Выполнить</button>
+
+            </div>
+        </footer>
     </div>
 </div>
 </body>
