@@ -19,6 +19,7 @@
   }
   .s-panel {
     padding: 20px 0;
+    margin-bottom: 50px;
     &__text {
       margin-bottom: 10px;
     }
@@ -31,3 +32,18 @@
   }
 }
 
+.b-img-wrapper{
+  img{
+    max-width: 500px;
+    max-height: 400px;
+    height: auto;
+  }
+}
+
+.s-middle__canvas{
+  canvas{
+    max-width: 500px;
+    max-height: 400px;
+    height: auto;
+  }
+}

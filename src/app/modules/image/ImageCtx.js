@@ -1,19 +1,30 @@
 export default class ImageCtx{
 
-    constructor(areaElementId, imgId){
-        this.imgElement = document.getElementById(imgId);
-        this.initConvas(this.imgElement.width, this.imgElement.height);
-        this.areaElement = document.getElementById(areaElementId);
 
-        this.ctx = this.convas.getContext("2d");
-        this.ctx.drawImage(this.imgElement, 0, 0);
-        this.imageData = this.ctx.getImageData(0, 0, this.convas.width, this.convas.height);
+    constructor(areaElementId){
+        this.areaElement = document.getElementById(areaElementId);
     }
 
-    initConvas(width, height){
+    initFromIMG(imgId){
+        var imgElement = document.getElementById(imgId);
+        this.initCanvas(imgElement.naturalWidth, imgElement.naturalHeight);
+        this.ctx.drawImage(imgElement, 0, 0);
+        this.imageData = this.ctx.getImageData(0, 0, imgElement.naturalWidth, imgElement.naturalHeight);
+        return this;
+    }
+
+    initFromCanvasData(imageData){
+        this.initCanvas(imageData.width, imageData.height);
+        this.ctx.putImageData(imageData, 0, 0);
+        this.imageData = this.ctx.getImageData(0, 0, imageData.width, imageData.height);
+        return this;
+    }
+
+    initCanvas(width, height){
         this.convas = document.createElement('canvas');
         this.convas.width = width;
         this.convas.height = height;
+        this.ctx = this.convas.getContext("2d");
     }
 
     putImage(imageCtxData = null){
