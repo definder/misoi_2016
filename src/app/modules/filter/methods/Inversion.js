@@ -5,6 +5,7 @@ export default class Inversion extends FilterInterface {
     constructor(imageData) {
         super(imageData);
         this.inversionData = [];
+        return this;
     }
 
     filter() {

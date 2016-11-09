@@ -7,6 +7,8 @@ import GammaCorrection from './modules/filter/methods/GammaCorrection';
 import Otsu from './modules/filter/methods/Otsu';
 import Bradley from './modules/filter/methods/Bradley';
 import Inversion from './modules/filter/methods/Inversion';
+import Morphology from './modules/processing/Morphology';
+import Search from './modules/processing/Search';
 import Front from './front/index';
 
 document.addEventListener("DOMContentLoaded", event => {
@@ -51,7 +53,31 @@ document.addEventListener("DOMContentLoaded", event => {
                 filteringImage = new Inversion(currentImg);
                 break;
         }
+
+
+
         prevImg = filteringImage.filter();
         imgCtx.putImage(prevImg);
     }, false);
+    var e = document.getElementById('btn1');
+    e.addEventListener('click',()=>{
+        var m = new Morphology(prevImg);
+        m.erosion()/*.increase()*/;
+        imgCtx = new ImageCtx('convas');
+        imgCtx.putImage(imgCtx.initFromCanvasData(m.exportImageData()).imageData)
+    });
+    var e1 = document.getElementById('btn2');
+    e1.addEventListener('click',()=>{
+        if(document.getElementById('selectImg').value == 'main'){
+            imgCtx = new ImageCtx('convas');
+            currentImg = imgCtx.initFromIMG('target').imageData;
+        } else {
+            imgCtx = new ImageCtx('convas');
+            currentImg = imgCtx.initFromCanvasData(prevImg).imageData;
+        }
+        var ser = new Search(currentImg);
+        ser.run();
+        var r = ser.select();
+        imgCtx.putImage(r);
+    });
 });

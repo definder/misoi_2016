@@ -6,6 +6,7 @@ export default class Sobel extends FilterInterface {
         super(imageData);
         this.sobelData = [];
         this.grayscaleData = [];
+        return this;
     }
 
     initMatrix() {

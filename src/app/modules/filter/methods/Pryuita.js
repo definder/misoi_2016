@@ -5,6 +5,7 @@ export default class Median extends FilterInterface {
     constructor(imageData) {
         super(imageData);
         this.pryuitaData = [];
+        return this;
     }
 
     initMatrix() {

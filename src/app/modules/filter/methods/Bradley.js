@@ -5,6 +5,7 @@ export default class Bradley extends FilterInterface {
     constructor(imageData, ratio) {
         super(imageData);
         this.ratio = ratio;
+        return this;
     }
     filter() {
         var {imageData} = this;

@@ -7,6 +7,7 @@ export default class Otsu extends FilterInterface {
         this.RED_INTENCITY_COEF = 0.2126;
         this.GREEN_INTENCITY_COEF = 0.7152;
         this.BLUE_INTENCITY_COEF = 0.0722;
+        return this;
     }
 
     filter() {

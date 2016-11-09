@@ -14,6 +14,7 @@ export default class GammaCorrection extends FilterInterface {
         this.q = q;
         this.c = c;
         this.correctionData = [];
+        return this;
     }
 
     brightness(r, g, b){

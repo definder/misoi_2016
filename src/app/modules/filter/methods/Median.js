@@ -2,10 +2,11 @@ import FilterInterface from '../interface/FilterInterface';
 
 export default class Median extends FilterInterface {
 
-    constructor(imageData) {
+    constructor(imageData, coff = 3) {
         super(imageData);
-        this.filterSize = 3;
+        this.filterSize = coff;
         this.medianDate = [];
+        return this;
     }
 
     filter() {
