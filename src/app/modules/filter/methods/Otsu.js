@@ -63,6 +63,10 @@ export default class Otsu extends FilterInterface {
             data[i+1] = val;
             data[i+2] = val;
         }
-        return imageData;
+        return this;
+    }
+
+    toImageData(){
+        return this.imageData;
     }
 }

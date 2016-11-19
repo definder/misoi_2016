@@ -24,8 +24,8 @@ export default class Median extends FilterInterface {
         for (var y = 0; y < imageData.height; y++) {
             for (var x = 0; x < imageData.width; x++) {
                 var neighbourIndex = 0;
-                for(var filterY = -filterOffset; filterY <= filterOffset; filterY++){
-                    for(var filterX = -filterOffset; filterX <= filterOffset; filterX++){
+                for (var filterY = -filterOffset; filterY <= filterOffset; filterY++) {
+                    for (var filterX = -filterOffset; filterX <= filterOffset; filterX++) {
                         redNeighbours[neighbourIndex] = pixelAt(x + filterX, y + filterY, 0);
                         greenNeighbours[neighbourIndex] = pixelAt(x + filterX, y + filterY, 1);
                         blueNeighbours[neighbourIndex] = pixelAt(x + filterX, y + filterY, 2);
@@ -40,18 +40,15 @@ export default class Median extends FilterInterface {
 
             }
         }
-
-        var clampedArray = this.medianDate;
-
-        if (typeof Uint8ClampedArray === 'function') {
-            clampedArray = new Uint8ClampedArray(this.medianDate);
-        }
-
-        return new ImageData(clampedArray, imageData.width, imageData.height);
+        return this;
     }
 
     compareNumbers(a, b) {
         return a - b;
+    }
+
+    toImageData() {
+        return this.createImageData(this.medianDate, this.imageData.width, this.imageData.height);
     }
 }
 

@@ -2,11 +2,15 @@
 import FilterInterface from '../interface/FilterInterface';
 
 export default class Bradley extends FilterInterface {
+
+    bradleyData = [];
+
     constructor(imageData, ratio) {
         super(imageData);
         this.ratio = ratio;
         return this;
     }
+
     filter() {
         var {imageData} = this;
         var sourceData = imageData.data;
@@ -46,7 +50,8 @@ export default class Bradley extends FilterInterface {
                 }
             }
         }
-        return result;
+        this.bradleyData = result;
+        return this;
     }
     getIntegralAt(integral, width, x1, y1, x2, y2) {
         var result = integral[x2 + y2 * width];
@@ -60,5 +65,9 @@ export default class Bradley extends FilterInterface {
             result -= integral[(x1 - 1) + (y2) * width];
         }
         return result;
+    }
+
+    toImageData() {
+        return this.bradleyData;
     }
 }

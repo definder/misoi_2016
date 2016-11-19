@@ -76,7 +76,6 @@ export default class Search extends FilterInterface{
         if (typeof Uint8ClampedArray === 'function') {
             clampedArray = new Uint8ClampedArray(this.sourceData);
         }
-        console.log(clampedArray);
         return new ImageData(clampedArray, this.sourceImageData.width, this.sourceImageData.height);
     }
 
@@ -114,10 +113,22 @@ export default class Search extends FilterInterface{
         }
     }
 
+    markLine(y, x, flag){
+        for(var i = y; this.imgDataArray[i][x] == 1; i++ ){
+            this.imgDataArray[i][x] = flag;
+        }
+        for( i = y-1; this.imgDataArray[i][x] == 1; i-- ){
+            this.imgDataArray[i][x] = flag;
+        }
+    }
     finding(y, x, flag){
+
+
+        this.markLine(y, x, flag);
+        var isNumberF = false;
         try {
-            if(this.imgDataArray[y][x+1] != 0 && this.imgDataArray[y][x+1] != flag){
-                this.imgDataArray[y][x+1] = flag;
+            if(this.imgDataArray[y][x+1] == 1){
+                isNumberF = true;
                 this.finding(y, x+1, flag);
                 this.selectMatrix[flag].push({
                     x: x+1,
@@ -126,8 +137,8 @@ export default class Search extends FilterInterface{
             }
         } catch (e){ }
         try{
-            if(this.imgDataArray[y][x-1] != 0 && this.imgDataArray[y][x-1] != flag){
-                this.imgDataArray[y][x-1] = flag;
+            if(this.imgDataArray[y][x-1] == 1){
+                isNumberF = true;
                 this.finding(y, x-1, flag);
                 this.selectMatrix[flag].push({
                     x: x-1,
@@ -135,26 +146,48 @@ export default class Search extends FilterInterface{
                 });
             }
         } catch (e){ }
-        try{
-            if(this.imgDataArray[y+1][x] != 0 && this.imgDataArray[y+1][x] != flag){
-                this.imgDataArray[y+1][x] = flag;
-                this.finding(y+1, x, flag);
-                this.selectMatrix[flag].push({
-                    x: x,
-                    y: y+1,
-                });
+        if(true == true){
+            for(var i = y + 1; this.imgDataArray[i][x] == flag; i++ ){
+                try {
+                    if(this.imgDataArray[i][x+1] != 0 && this.imgDataArray[i][x+1] != flag){
+                        this.finding(i, x+1, flag);
+                        this.selectMatrix[flag].push({
+                            x: x+1,
+                            y: i,
+                        });
+                    }
+                } catch (e){ }
+                try{
+                    if(this.imgDataArray[i][x-1] != 0 && this.imgDataArray[i][x-1] != flag){
+                        this.finding(i, x-1, flag);
+                        this.selectMatrix[flag].push({
+                            x: x-1,
+                            y: i,
+                        });
+                    }
+                } catch (e){ }
             }
-        } catch (e){ }
-        try {
-            if(this.imgDataArray[y-1][x] != 0 && this.imgDataArray[y-1][x] != flag){
-                this.imgDataArray[y-1][x] = flag;
-                this.finding(y-1, x, flag);
-                this.selectMatrix[flag].push({
-                    x: x,
-                    y: y-1,
-                });
+            for( i = y-1; this.imgDataArray[i][x] == flag; i-- ){
+                try {
+                    if(this.imgDataArray[i][x+1] != 0 && this.imgDataArray[i][x+1] != flag){
+                        this.finding(i, x+1, flag);
+                        this.selectMatrix[flag].push({
+                            x: x+1,
+                            y: i,
+                        });
+                    }
+                } catch (e){ }
+                try{
+                    if(this.imgDataArray[i][x-1] != 0 && this.imgDataArray[i][x-1] != flag){
+                        this.finding(i, x-1, flag);
+                        this.selectMatrix[flag].push({
+                            x: x-1,
+                            y: i,
+                        });
+                    }
+                } catch (e){ }
             }
-        } catch (e){ }
+        }
     }
 
     selected(){

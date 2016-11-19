@@ -68,12 +68,10 @@ export default class Sobel extends FilterInterface {
                 this.sobelData.push(magnitude, magnitude, magnitude, 255);
             }
         }
-        var clampedArray = this.sobelData;
+        return this;
+    }
 
-        if (typeof Uint8ClampedArray === 'function') {
-            clampedArray = new Uint8ClampedArray(this.sobelData);
-        }
-
-        return new ImageData(clampedArray, imageData.width, imageData.height);
+    toImageData(){
+        return this.createImageData(this.sobelData, this.imageData.width, this.imageData.height);
     }
 }

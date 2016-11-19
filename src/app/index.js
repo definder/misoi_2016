@@ -9,6 +9,9 @@ import Bradley from './modules/filter/methods/Bradley';
 import Inversion from './modules/filter/methods/Inversion';
 import Morphology from './modules/processing/Morphology';
 import Search from './modules/processing/Search';
+import Gray from './modules/filter/methods/GrayImage';
+import Gauss from './modules/filter/methods/Gauss';
+import Canny from './modules/filter/methods/Canny';
 import Front from './front/index';
 
 document.addEventListener("DOMContentLoaded", event => {
@@ -52,11 +55,20 @@ document.addEventListener("DOMContentLoaded", event => {
             case 'Inversion':
                 filteringImage = new Inversion(currentImg);
                 break;
+            case 'Gray':
+                filteringImage = new Gray(currentImg);
+                break;
+            case 'Gauss':
+                filteringImage = new Gauss(currentImg);
+                break;
+            case 'Canny':
+                filteringImage = new Canny(currentImg);
+                break;
         }
 
 
 
-        prevImg = filteringImage.filter();
+        prevImg = filteringImage.filter().toImageData();
         imgCtx.putImage(prevImg);
     }, false);
     var e = document.getElementById('btn1');
