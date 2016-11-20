@@ -82,8 +82,7 @@ export default class Canny extends FilterInterface {
 
   hysteresis(imgData, ht = 100, lt = 50) {
     var copy, data, isCandidate, isStrong, isWeak, traverseEdge;
-    copy = generateMatrix(imgData.width, imgData.height);
-    data = this.generateGrayMatrix(imgData);
+    copy = this.generateGrayMatrix(imgData);
 
     isStrong = function(edge) {
       return edge > ht;
@@ -99,9 +98,9 @@ export default class Canny extends FilterInterface {
 
     for (var y = 0; y < imgData.height; y++) {
       for (var x = 0; x < imgData.width; x++) {
-        if (isStrong(data[y][x])) {
+        if (isStrong(copy[y][x])) {
           copy[y][x] = 255;
-        } else if (isWeak(data[y][x]) || isCandidate(data[y][x])) {
+        } else if (isWeak(copy[y][x]) || isCandidate(copy[y][x])) {
           copy[y][x] = 0;
         }
       }
