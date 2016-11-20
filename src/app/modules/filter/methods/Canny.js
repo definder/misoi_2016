@@ -32,12 +32,7 @@ export default class Canny extends FilterInterface {
     for (y = 0; y < this.imageData.height; y++) {
       for (x = 0; x < this.imageData.width; x++) {
         for (i = 0; i < 3; i++) {
-          try {
-            console.log('x = ',x, 'y = ', y);
-            this.cannyData.push(this.matrix[y][x]);
-          } catch (err){
-            console.log(err, y, x);
-          }
+          this.cannyData.push(this.matrix[y][x]);
         }
         this.cannyData.push(255);
       }
@@ -85,7 +80,7 @@ export default class Canny extends FilterInterface {
     return copy;
   }
 
-  hysteresis(imgData, ht = 120, lt = 40) {
+  hysteresis(imgData, ht = 100, lt = 50) {
     var copy, data, isCandidate, isStrong, isWeak, traverseEdge;
     copy = generateMatrix(imgData.width, imgData.height);
     data = this.generateGrayMatrix(imgData);
@@ -105,23 +100,26 @@ export default class Canny extends FilterInterface {
     for (var y = 0; y < imgData.height; y++) {
       for (var x = 0; x < imgData.width; x++) {
         if (isStrong(data[y][x])) {
-          return copy[y][x] = 255;
+          copy[y][x] = 255;
         } else if (isWeak(data[y][x]) || isCandidate(data[y][x])) {
-          return copy[y][x] = 0;
+          copy[y][x] = 0;
         }
       }
     }
 
-    traverseEdge = function(x, y) {
-      var i, j, neighbors, _i, _results;
+    traverseEdge = function(y, x) {
+      var i, j, _i, _results;
+      var neighbors = [], _neighbors=[];
       if (x === 0 || y === 0 || x === imgData.width - 1 || y === imgData.height - 1) {
         return;
       }
-      if (isStrong(copy[x][y])) {
-        for (var y = -1; y < +2; y++) {
-          for (var x = -1; x < +2; x++) {
-            neighbors[y][x] = data[y][x];
+      if (isStrong(copy[y][x])) {
+        for (var yNeighbors = y - 1; yNeighbors < y + 2; yNeighbors++) {
+          _neighbors = [];
+          for (var xNeighbors = x - 1; xNeighbors < x + 2; xNeighbors++) {
+            _neighbors.push(copy[yNeighbors][xNeighbors]);
           }
+          neighbors.push(_neighbors);
         }
         _results = [];
         for (i = _i = 0; _i <= 2; i = ++_i) {
@@ -145,14 +143,14 @@ export default class Canny extends FilterInterface {
 
     for (var y = 0; y < imgData.height; y++) {
       for (var x = 0; x < imgData.width; x++) {
-        return traverseEdge(x, y);
+        traverseEdge(y, x);
       }
     }
 
     for (var y = 0; y < imgData.height; y++) {
       for (var x = 0; x < imgData.width; x++) {
-        if (!isStrong(data[y][x])) {
-          return copy[x][y] = 0;
+        if (!isStrong(copy[y][x])) {
+          copy[y][x] = 0;
         }
       }
     }
