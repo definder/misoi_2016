@@ -16,18 +16,37 @@ export default class Search extends FilterInterface{
     sourceData = [];
     workData = [];
     imgDataArray = [];
-    direction = {
-        LEFT_BOTTOM: 'LEFT_BOTTOM',
-        RIGHT_TOP: 'RIGHT_TOP',
+    category = {
+        BIG_CLASS: 'BIG_CLASS',
+        SMALL_CLASS: 'SMALL_CLASS',
     };
+    categoryClass = {
+        category1: {
+            color: {
+                red: 255,
+                green: 40,
+                blue: 0,
+            },
+            elements: [],
+        },
+        category2: {
+            color: {
+                red: 70,
+                green: 100,
+                blue: 140,
+            },
+            elements: [],
+        },
+    };
+    maxAmountPixel = 0;
     selectMatrix = {};
     square = { };
 
     run(){
-        var result = new Median(this.imageData, 5).filter();
-        result = new Sobel(result).filter();
-        result = new Invers(result).filter();
-        result = new Otsu(result).filter();
+        var result = new Median(this.imageData, 5).filter().toImageData();
+        result = new Sobel(result).filter().toImageData();
+        result = new Invers(result).filter().toImageData();
+        result = new Otsu(result).filter().toImageData();
         //result = new Morphy(result).increase().exportImageData();
         this.imageData = result;
         this.sourceImageData = result;
@@ -37,7 +56,7 @@ export default class Search extends FilterInterface{
     select(){
         var matrix = [];
         var pixelAt = this.bindPixel(this.imageData.data);
-        var x, y;
+        var x, y, _category;
         for (y = 0; y < this.imageData.height; y++) {
             this.imgDataArray[y] = [];
             this.workData[y] = [];
@@ -65,8 +84,11 @@ export default class Search extends FilterInterface{
                 r = pixelAt(x, y, 0);
                 g = pixelAt(x, y, 1);
                 b = pixelAt(x, y, 2);
-                if(this.findInSquare(y, x)){
+                _category = this.findInSquare(y, x);
+                if(_category == this.category.BIG_CLASS){
                     this.sourceData.push(255, 40, 0, 255);
+                } else if(_category == this.category.SMALL_CLASS){
+                    this.sourceData.push(70, 100, 140, 255);
                 } else {
                     this.sourceData.push(r, g, b, 255);
                 }
@@ -84,7 +106,7 @@ export default class Search extends FilterInterface{
         var flag = false;
         _foreach(this.square, (value, key)=>{
             if((x == value.minX && y >= value.minY && y <= value.maxY) || (x == value.maxX && y >= value.minY && y <= value.maxY) || (y == value.minY && x >= value.minX && x <= value.maxX) || (y == value.maxY && x >= value.minX && x <= value.maxX)){
-                flag = true;
+                flag = value.category;
             }
         });
         return flag;
@@ -191,8 +213,15 @@ export default class Search extends FilterInterface{
     }
 
     selected(){
+        this.maxAmountPixel = 0;
         _foreach(this.selectMatrix, (value, key)=>{
-            var minX = 10000000000, maxX = 0, minY = 10000000000, maxY = 0;
+            if(value.length > this.maxAmountPixel){
+                this.maxAmountPixel = value.length;
+            }
+        });
+        this.maxAmountPixel = this.maxAmountPixel != 0 ? Math.round(this.maxAmountPixel / 2) : 0;
+        _foreach(this.selectMatrix, (value, key)=>{
+            var minX = 10000000000, maxX = 0, minY = 10000000000, maxY = 0, category = this.category.SMALL_CLASS;
             _foreach(value, (v, k)=>{
                 if(v.x < minX){
                     minX = v.x;
@@ -207,11 +236,15 @@ export default class Search extends FilterInterface{
                     maxY = v.y;
                 }
             });
+            if(value.length > this.maxAmountPixel){
+                category = this.category.BIG_CLASS;
+            }
             this.square[key] = {
                 minX,
                 maxX,
                 minY,
                 maxY,
+                category: category,
             }
         });
     }

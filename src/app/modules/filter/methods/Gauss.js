@@ -22,12 +22,14 @@ export default class Gauss extends FilterIntrface {
         const {height, width, data} = this.imageData;
         this.gaussData = [];
         var center = Math.round(size / 2) - 1;
+        var flag;
         center = center < 0 ? 0 : center;
         for (y = 0; y < height; y++) {
             for (x = 0; x < width; x++) {
                 red = 0;
                 green = 0;
                 blue = 0;
+                flag = false;
                 for (i = 0; i < size; i++) {
                     for (j = 0; j < size; j++) {
                         _y = y + ( i <= center ? (i - center) : (size - i));
@@ -37,8 +39,18 @@ export default class Gauss extends FilterIntrface {
                             red += data[index] * kernel[i][j];
                             green += data[index+1] * kernel[i][j];
                             blue += data[index+2] * kernel[i][j];
+                        } else {
+                            flag = true;
+                            break;
                         }
                     }
+                    if(flag) break;
+                }
+                if(flag){
+                    index = ((width * y) + x) * 4;
+                    red = data[index];
+                    green = data[index+1];
+                    blue = data[index+2];
                 }
                 this.gaussData.push(red, green, blue, 255);
             }
