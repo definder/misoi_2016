@@ -14,11 +14,20 @@ export default class Morphology extends FilterInterface{
     imgDataArray = [];
     structure = {
         indexI: 1,
-        indexJ: 1,
+        indexJ: 0,
         data: [
-            [1,1,1],
-            [1,1,1],
-            [1,1,1],
+            [1,],
+            [1,],
+            [1,],
+        ]
+    };
+    _structure = {
+        indexI: 1,
+        indexJ: 0,
+        data: [
+            [1,],
+            [1,],
+            [1,],
         ]
     };
 
@@ -47,10 +56,10 @@ export default class Morphology extends FilterInterface{
 
         var i1, j1, iCorrection, jCorrection;
         var maxX = this.imageData.width, maxY = this.imageData.height;
-        for(j1 = 0; j1 < this.structure.data.length; j1++){
-            for(i1 = 0; i1 < this.structure.data[j1].length; i1++){
-                jCorrection =  y + j1 - this.structure.indexJ;
-                iCorrection = x + i1 - this.structure.indexI;
+        for(j1 = 0; j1 < this._structure.data.length; j1++){
+            for(i1 = 0; i1 < this._structure.data[j1].length; i1++){
+                jCorrection =  y + j1 - this._structure.indexJ;
+                iCorrection = x + i1 - this._structure.indexI;
                 if(iCorrection >= 0 && jCorrection >= 0 && jCorrection < maxY && iCorrection < maxX){
                     if(this.imgDataArray[jCorrection][iCorrection] != this.structure.data[j1][i1]){
                         return false;

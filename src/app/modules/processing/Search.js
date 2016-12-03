@@ -139,13 +139,13 @@ export default class Search extends FilterInterface{
         for(var i = y; this.imgDataArray[i][x] == 1; i++ ){
             this.imgDataArray[i][x] = flag;
         }
-        for( i = y-1; this.imgDataArray[i][x] == 1; i-- ){
-            this.imgDataArray[i][x] = flag;
-        }
+        try {
+            for( i = y-1; this.imgDataArray[i][x] == 1; i-- ){
+                this.imgDataArray[i][x] = flag;
+            }
+        } catch (e){ }
     }
     finding(y, x, flag){
-
-
         this.markLine(y, x, flag);
         var isNumberF = false;
         try {
@@ -169,6 +169,7 @@ export default class Search extends FilterInterface{
             }
         } catch (e){ }
         if(true == true){
+
             for(var i = y + 1; this.imgDataArray[i][x] == flag; i++ ){
                 try {
                     if(this.imgDataArray[i][x+1] != 0 && this.imgDataArray[i][x+1] != flag){
@@ -189,26 +190,28 @@ export default class Search extends FilterInterface{
                     }
                 } catch (e){ }
             }
-            for( i = y-1; this.imgDataArray[i][x] == flag; i-- ){
-                try {
-                    if(this.imgDataArray[i][x+1] != 0 && this.imgDataArray[i][x+1] != flag){
-                        this.finding(i, x+1, flag);
-                        this.selectMatrix[flag].push({
-                            x: x+1,
-                            y: i,
-                        });
-                    }
-                } catch (e){ }
-                try{
-                    if(this.imgDataArray[i][x-1] != 0 && this.imgDataArray[i][x-1] != flag){
-                        this.finding(i, x-1, flag);
-                        this.selectMatrix[flag].push({
-                            x: x-1,
-                            y: i,
-                        });
-                    }
-                } catch (e){ }
-            }
+            try {
+                for( i = y-1; this.imgDataArray[i][x] == flag; i-- ){
+                    try {
+                        if(this.imgDataArray[i][x+1] != 0 && this.imgDataArray[i][x+1] != flag){
+                            this.finding(i, x+1, flag);
+                            this.selectMatrix[flag].push({
+                                x: x+1,
+                                y: i,
+                            });
+                        }
+                    } catch (e){ }
+                    try{
+                        if(this.imgDataArray[i][x-1] != 0 && this.imgDataArray[i][x-1] != flag){
+                            this.finding(i, x-1, flag);
+                            this.selectMatrix[flag].push({
+                                x: x-1,
+                                y: i,
+                            });
+                        }
+                    } catch (e){ }
+                }
+            } catch (e) { }
         }
     }
 

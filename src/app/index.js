@@ -65,18 +65,19 @@ document.addEventListener("DOMContentLoaded", event => {
                 filteringImage = new Canny(currentImg);
                 break;
         }
-
-
-
         prevImg = filteringImage.filter().toImageData();
         imgCtx.putImage(prevImg);
     }, false);
     var e = document.getElementById('btn1');
     e.addEventListener('click',()=>{
         var m = new Morphology(prevImg);
-        m.erosion()/*.increase()*/;
+        m.increase();//.erosion();
         imgCtx = new ImageCtx('convas');
         imgCtx.putImage(imgCtx.initFromCanvasData(m.exportImageData()).imageData)
+        var ser = new Search(imgCtx.initFromCanvasData(m.exportImageData()).imageData);
+        //ser.run();
+        var r = ser.select();
+        imgCtx.putImage(r);
     });
     var e1 = document.getElementById('btn2');
     e1.addEventListener('click',()=>{
