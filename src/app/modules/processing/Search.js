@@ -289,6 +289,9 @@ export default class Search extends FilterInterface{
       this.isRemovedSquares.forEach((item) => {
         this.square.splice(item, 1);
       });
+      this.square = this.square.filter((item) => {
+        return item.category === this.category.BIG_CLASS;
+      });
     }
 
     exportImageData(){
