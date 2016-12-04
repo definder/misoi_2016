@@ -259,14 +259,14 @@ export default class Search extends FilterInterface{
     }
 
     mergeClasses() {
-      this.isRemovedSquares.push(1);
-
       this.square.forEach((currentSquare, key) => {
+        var width = (currentSquare.maxX - currentSquare.minX) / 20;
+        var height = currentSquare.maxY - currentSquare.minY;
         this.square.forEach((nextSquare, index) => {
-          if (((nextSquare.minX >= currentSquare.minX && nextSquare.minX <= currentSquare.maxX)
-            || (nextSquare.maxX >= currentSquare.minX && nextSquare.maxX <= currentSquare.maxX))
-            && ((nextSquare.minY >= currentSquare.minY && nextSquare.minY <= currentSquare.maxY)
-            || (nextSquare.maxY >= currentSquare.minY && nextSquare.maxY <= currentSquare.maxY)))
+          if (((nextSquare.minX >= (currentSquare.minX - width) && nextSquare.minX <= (currentSquare.maxX + width))
+            || (nextSquare.maxX >= (currentSquare.minX - width) && nextSquare.maxX <= (currentSquare.maxX + width)))
+            && ((nextSquare.minY >= (currentSquare.minY - height) && nextSquare.minY <= (currentSquare.maxY + height))
+            || (nextSquare.maxY >= (currentSquare.minY - height) && nextSquare.maxY <= (currentSquare.maxY + height))))
           {
               if (currentSquare.minX > nextSquare.minX) {
                 this.square[key].minX = nextSquare.minX;
@@ -280,11 +280,16 @@ export default class Search extends FilterInterface{
               if (currentSquare.maxY < nextSquare.maxY) {
                 this.square[key].maxY = nextSquare.maxY;
               }
-
+              // if (!this.isRemovedSquares.indexOf(index)) {
+              //   console.log('sdfsdf');
+              //   this.isRemovedSquares.push(index);
+              // }
           }
         });
       });
-
+      // this.isRemovedSquares.forEach((item) => {
+      //   this.square.splice(item, 1);
+      // });
     }
 
     exportImageData(){
