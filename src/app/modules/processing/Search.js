@@ -259,12 +259,15 @@ export default class Search extends FilterInterface{
     }
 
     mergeClasses() {
+      this.isRemovedSquares.push(1);
+
       this.square.forEach((currentSquare, key) => {
         this.square.forEach((nextSquare, index) => {
-          if (((currentSquare.minX < nextSquare.maxX) && (currentSquare.maxY < nextSquare.maxY))
-            || ((currentSquare.minX < nextSquare.maxX) && (currentSquare.minY < nextSquare.maxY))
-            || ((currentSquare.maxX < nextSquare.minX) && (currentSquare.maxY < nextSquare.minY))
-            || ((currentSquare.minX < nextSquare.maxX) && (currentSquare.maxY < nextSquare.minY))) {
+          if (((nextSquare.minX >= currentSquare.minX && nextSquare.minX <= currentSquare.maxX)
+            || (nextSquare.maxX >= currentSquare.minX && nextSquare.maxX <= currentSquare.maxX))
+            && ((nextSquare.minY >= currentSquare.minY && nextSquare.minY <= currentSquare.maxY)
+            || (nextSquare.maxY >= currentSquare.minY && nextSquare.maxY <= currentSquare.maxY)))
+          {
               if (currentSquare.minX > nextSquare.minX) {
                 this.square[key].minX = nextSquare.minX;
               }
@@ -277,17 +280,11 @@ export default class Search extends FilterInterface{
               if (currentSquare.maxY < nextSquare.maxY) {
                 this.square[key].maxY = nextSquare.maxY;
               }
-              if (!this.isRemovedSquares.indexOf(index) || !this.isRemovedSquares.length) {
-                this.isRemovedSquares.push(index);
-              }
+
           }
         });
       });
-      console.log('lengthSquare = ', this.square);
-      console.log('lengthRemove = ', this.isRemovedSquares.length);
-      this.isRemovedSquares.forEach((item) => {
-        this.square.splice(item, 1);
-      });
+
     }
 
     exportImageData(){
