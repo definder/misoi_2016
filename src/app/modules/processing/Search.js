@@ -40,7 +40,8 @@ export default class Search extends FilterInterface{
     };
     maxAmountPixel = 0;
     selectMatrix = {};
-    square = { };
+    square = [];
+    isRemovedSquares = [];
 
     run(){
         var result = new Median(this.imageData, 5).filter().toImageData();
@@ -78,6 +79,8 @@ export default class Search extends FilterInterface{
         //this.view();
         this.selected();
 
+        this.mergeClasses();
+
         pixelAt = this.bindPixel(this.sourceImageData.data);
         for (y = 0; y < this.sourceImageData.height; y++) {
             for (x = 0; x < this.sourceImageData.width; x++) {
@@ -101,11 +104,14 @@ export default class Search extends FilterInterface{
         return new ImageData(clampedArray, this.sourceImageData.width, this.sourceImageData.height);
     }
 
-
     findInSquare(y, x){
         var flag = false;
-        _foreach(this.square, (value, key)=>{
-            if((x == value.minX && y >= value.minY && y <= value.maxY) || (x == value.maxX && y >= value.minY && y <= value.maxY) || (y == value.minY && x >= value.minX && x <= value.maxX) || (y == value.maxY && x >= value.minX && x <= value.maxX)){
+        this.square.forEach((value, key)=>{
+            if((x == value.minX && y >= value.minY && y <= value.maxY)
+              || (x == value.maxX && y >= value.minY && y <= value.maxY)
+              || (y == value.minY && x >= value.minX && x <= value.maxX)
+              || (y == value.maxY && x >= value.minX && x <= value.maxX))
+            {
                 flag = value.category;
             }
         });
@@ -250,6 +256,38 @@ export default class Search extends FilterInterface{
                 category: category,
             }
         });
+    }
+
+    mergeClasses() {
+      this.square.forEach((currentSquare, key) => {
+        this.square.forEach((nextSquare, index) => {
+          if (((currentSquare.minX < nextSquare.maxX) && (currentSquare.maxY < nextSquare.maxY))
+            || ((currentSquare.minX < nextSquare.maxX) && (currentSquare.minY < nextSquare.maxY))
+            || ((currentSquare.maxX < nextSquare.minX) && (currentSquare.maxY < nextSquare.minY))
+            || ((currentSquare.minX < nextSquare.maxX) && (currentSquare.maxY < nextSquare.minY))) {
+              if (currentSquare.minX > nextSquare.minX) {
+                this.square[key].minX = nextSquare.minX;
+              }
+              if (currentSquare.maxX < nextSquare.maxX) {
+                this.square[key].maxX = nextSquare.maxX;
+              }
+              if (currentSquare.minY > nextSquare.minY) {
+                this.square[key].minY = nextSquare.minY;
+              }
+              if (currentSquare.maxY < nextSquare.maxY) {
+                this.square[key].maxY = nextSquare.maxY;
+              }
+              if (!this.isRemovedSquares.indexOf(index) || !this.isRemovedSquares.length) {
+                this.isRemovedSquares.push(index);
+              }
+          }
+        });
+      });
+      console.log('lengthSquare = ', this.square);
+      console.log('lengthRemove = ', this.isRemovedSquares.length);
+      this.isRemovedSquares.forEach((item) => {
+        this.square.splice(item, 1);
+      });
     }
 
     exportImageData(){
