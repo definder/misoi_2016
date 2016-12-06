@@ -11,6 +11,7 @@ export default class Search extends FilterInterface{
     constructor(imgData){
         super(imgData);
         this.sourceImageData = imgData;
+        this.colorMatrix = imgData;
     }
 
     sourceData = [];
@@ -50,7 +51,9 @@ export default class Search extends FilterInterface{
         result = new Otsu(result).filter().toImageData();
         //result = new Morphy(result).increase().exportImageData();
         this.imageData = result;
+
         this.sourceImageData = result;
+
         return this;
     }
 
@@ -101,7 +104,38 @@ export default class Search extends FilterInterface{
         if (typeof Uint8ClampedArray === 'function') {
             clampedArray = new Uint8ClampedArray(this.sourceData);
         }
+
+        this.geomRule();
+
         return new ImageData(clampedArray, this.sourceImageData.width, this.sourceImageData.height);
+    }
+
+    geomRule() {
+      this.square.forEach((objectSquare, index) => {
+        var pixelAt = this.bindPixel(this.sourceImageData.data);
+
+        var height = objectSquare.maxY - objectSquare.minY;
+        var centerY = Math.round(height / 2);
+
+        var firstContourX, secondContourX;
+
+        for (let x = objectSquare.minX; x < objectSquare.maxX; x++) {
+          var r = pixelAt(x, centerY, 0);
+          var g = pixelAt(x, centerY, 1);
+          var b = pixelAt(x, centerY, 2);
+          var avg = (r + g + b)/3;
+          if(avg === 0) {
+            firstContourX = x;
+            for (let x = objectSquare.maxX; x > objectSquare.minX; x--) {
+              secondContourX = x;
+              console.log(`Высота объекта ${index + 1} = `, height);
+              console.log(`Ширина объекта ${index + 1} = `, secondContourX - firstContourX);
+              return;
+            }
+          }
+        }
+
+      });
     }
 
     findInSquare(y, x){
