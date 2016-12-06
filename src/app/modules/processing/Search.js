@@ -106,9 +106,46 @@ export default class Search extends FilterInterface{
         }
 
         this.geomRule();
+        this.colorRule();
 
         return new ImageData(clampedArray, this.sourceImageData.width, this.sourceImageData.height);
     }
+
+    colorRule() {
+      this.square.forEach((objectSquare, index) => {
+        var pixelAt = this.bindPixel(this.colorMatrix.data);
+
+        var height = objectSquare.maxY - objectSquare.minY;
+        var centerY = Math.round(height / 2);
+
+        var width = objectSquare.maxX - objectSquare.minX;
+        var centerX = Math.round(width / 2);
+
+        var indentX = Math.round(width / 20);
+        var indentY = Math.round(height / 20);
+
+        var R = 0, G = 0, B = 0, counter = 0;
+
+        for (let x = centerX - indentX; x < centerX + indentX; x++) {
+            for (let y = centerY - indentY; y < centerY + indentY; y++) {
+              var r = pixelAt(x, y, 0);
+              var g = pixelAt(x, y, 1);
+              var b = pixelAt(x, y, 2);
+              R += r;
+              G += g;
+              B += b;
+              counter++;
+            }
+        }
+        R = Math.round(R / counter);
+        G = Math.round(G / counter);
+        B = Math.round(B / counter);
+        console.log(`Объект номер ${index + 1} имеет цвет: R = ${R} G = ${G} B = ${B}`);
+
+      });
+    }
+
+
 
     geomRule() {
       this.square.forEach((objectSquare, index) => {
