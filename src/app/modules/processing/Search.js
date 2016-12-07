@@ -106,27 +106,26 @@ export default class Search extends FilterInterface{
         }
 
         this.geomRule();
-        this.colorRule();
 
         return new ImageData(clampedArray, this.sourceImageData.width, this.sourceImageData.height);
     }
 
-    colorRule() {
-      this.square.forEach((objectSquare, index) => {
-        var pixelAt = this.bindPixel(this.colorMatrix.data);
+    colorRule(obj, index, firstContourX, secondContourX) {
 
-        var height = objectSquare.maxY - objectSquare.minY;
-        var centerY = Math.round(height / 2);
+      var pixelAt = this.bindPixel(this.colorMatrix.data);
 
-        var width = objectSquare.maxX - objectSquare.minX;
-        var centerX = Math.round(width / 2);
+      var height = (obj.maxY - obj.minY);
+      var centerY = obj.maxY - Math.round(height / 2);
 
-        var indentX = Math.round(width / 20);
+      var width = (obj.maxX - obj.minX - secondContourX - firstContourX);
+      var centerX = obj.maxX - Math.round(width / 2) - secondContourX;
+
+      var indentX = Math.round(width / 20);
         var indentY = Math.round(height / 20);
 
         var R = 0, G = 0, B = 0, counter = 0;
 
-        for (let x = centerX - indentX; x < centerX + indentX; x++) {
+      for (let x = centerX - indentX; x < centerX + indentX; x++) {
             for (let y = centerY - indentY; y < centerY + indentY; y++) {
               var r = pixelAt(x, y, 0);
               var g = pixelAt(x, y, 1);
@@ -141,8 +140,6 @@ export default class Search extends FilterInterface{
         G = Math.round(G / counter);
         B = Math.round(B / counter);
         console.log(`Объект номер ${index + 1} имеет цвет: R = ${R} G = ${G} B = ${B}`);
-
-      });
     }
 
 
@@ -152,7 +149,7 @@ export default class Search extends FilterInterface{
         var pixelAt = this.bindPixel(this.sourceImageData.data);
 
         var height = objectSquare.maxY - objectSquare.minY;
-        var centerY = Math.round(height / 2);
+        var centerY = objectSquare.maxY - Math.round(height / 2);
 
         var firstContourX, secondContourX;
 
@@ -163,15 +160,15 @@ export default class Search extends FilterInterface{
           var avg = (r + g + b)/3;
           if(avg === 0) {
             firstContourX = x;
-            for (let x = objectSquare.maxX; x > objectSquare.minX; x--) {
-              secondContourX = x;
+            for (let X = objectSquare.maxX; X > objectSquare.minX; X--) {
+              secondContourX = X;
               console.log(`Высота объекта ${index + 1} = `, height);
               console.log(`Ширина объекта ${index + 1} = `, secondContourX - firstContourX);
+              this.colorRule(objectSquare, index, firstContourX- objectSquare.minX , objectSquare.maxX - secondContourX);
               return;
             }
           }
         }
-
       });
     }
 
