@@ -13,6 +13,17 @@ export default class ImageCtx{
         return this;
     }
 
+    initFromUrl(url, cb){
+        let newImg = document.createElement('img');
+        newImg.src = url;
+        newImg.onload = ()=>{
+            this.initCanvas(newImg.naturalWidth, newImg.naturalHeight);
+            this.ctx.drawImage(newImg, 0, 0);
+            this.imageData = this.ctx.getImageData(0, 0, newImg.naturalWidth, newImg.naturalHeight);
+            cb(this);
+        }
+    }
+
     initFromCanvasData(imageData){
         this.initCanvas(imageData.width, imageData.height);
         this.ctx.putImageData(imageData, 0, 0);

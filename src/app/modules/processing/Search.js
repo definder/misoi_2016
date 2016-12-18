@@ -179,6 +179,7 @@ export default class Search extends FilterInterface {
                                 objectSquare.maxX - secondContourX
                             )
                         };
+                        console.log(this.rule);
                         return;
                     }
                 }

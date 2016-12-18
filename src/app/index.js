@@ -12,6 +12,8 @@ import Search from './modules/processing/Search';
 import Gray from './modules/filter/methods/GrayImage';
 import Gauss from './modules/filter/methods/Gauss';
 import Canny from './modules/filter/methods/Canny';
+import Neiron from './modules/Neiron';
+
 import Front from './front/index';
 
 document.addEventListener("DOMContentLoaded", event => {
@@ -73,7 +75,7 @@ document.addEventListener("DOMContentLoaded", event => {
         var m = new Morphology(prevImg);
         m.increase();//.erosion();
         imgCtx = new ImageCtx('convas');
-        imgCtx.putImage(imgCtx.initFromCanvasData(m.exportImageData()).imageData)
+        imgCtx.putImage(imgCtx.initFromCanvasData(m.exportImageData()).imageData);
         var ser = new Search(imgCtx.initFromCanvasData(m.exportImageData()).imageData);
         //ser.run();
         var r = ser.select();
@@ -96,6 +98,40 @@ document.addEventListener("DOMContentLoaded", event => {
 
     var e3 = document.getElementById('btn3');
     e3.addEventListener('click', ()=>{
-        
+        imgCtx = new ImageCtx('convas');
+        let neiron = new Neiron();
+        let img;
+        imgCtx.initFromUrl('/assets/img/apple-1.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('apple', ser.rule);
+            console.log(neiron.fruit);
+        });
+        let imgCtxApple2 = new ImageCtx('convas');
+        imgCtxApple2.initFromUrl('/assets/img/apple-2.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('apple', ser.rule);
+            console.log(neiron.fruit);
+        });
+        let imgCtxApple3 = new ImageCtx('convas');
+        imgCtxApple3.initFromUrl('/assets/img/apple-3.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('apple', ser.rule);
+            console.log(neiron.fruit);
+        });
+        let imgCtxApple5 = new ImageCtx('convas');
+        imgCtxApple5.initFromUrl('/assets/img/apple-5.png', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            console.log(ser.rule);
+            neiron.teach('apple', ser.rule);
+            console.log(neiron.fruit);
+        });
     });
 });
