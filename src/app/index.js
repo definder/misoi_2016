@@ -17,6 +17,7 @@ import Neiron from './modules/Neiron';
 import Front from './front/index';
 
 document.addEventListener("DOMContentLoaded", event => {
+    var neiron = new Neiron();
     Front();
     var currentImg = null;
     var mainImg = null;
@@ -94,12 +95,23 @@ document.addEventListener("DOMContentLoaded", event => {
         ser.run();
         var r = ser.select();
         imgCtx.putImage(r);
+        console.log(ser.rule);
+        alert(neiron.search(ser.rule));
     });
+    var e4 = document.getElementById('btn4');
+    e4.addEventListener('click',()=>{
+        if(window.localStorage.getItem('fruit')){
+            neiron.fruit = JSON.parse(window.localStorage.getItem('fruit'));
+            console.log('Getting', neiron.fruit);
+        } else {
+            window.localStorage.setItem('fruit', JSON.stringify(neiron.fruit));
+            console.log('Saving');
+        }
 
+    });
     var e3 = document.getElementById('btn3');
     e3.addEventListener('click', ()=>{
         imgCtx = new ImageCtx('convas');
-        let neiron = new Neiron();
         let img;
         imgCtx.initFromUrl('/assets/img/apple-1.jpg', (_imgCtx)=>{
             let ser = new Search(_imgCtx.imageData);
@@ -124,13 +136,45 @@ document.addEventListener("DOMContentLoaded", event => {
             neiron.teach('apple', ser.rule);
             console.log(neiron.fruit);
         });
+        let imgCtxApple4 = new ImageCtx('convas');
+        imgCtxApple4.initFromUrl('/assets/img/apple-4.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('apple', ser.rule);
+            console.log(neiron.fruit);
+        });
         let imgCtxApple5 = new ImageCtx('convas');
         imgCtxApple5.initFromUrl('/assets/img/apple-5.png', (_imgCtx)=>{
             let ser = new Search(_imgCtx.imageData);
             ser.run();
             ser.select();
-            console.log(ser.rule);
             neiron.teach('apple', ser.rule);
+            console.log(neiron.fruit);
+        });
+        let imgCtxOrange1 = new ImageCtx('convas');
+        imgCtxOrange1.initFromUrl('/assets/img/orange-1.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('orange', ser.rule);
+            console.log(neiron.fruit);
+        });
+        let imgCtxOrange2 = new ImageCtx('convas');
+        imgCtxOrange2.initFromUrl('/assets/img/orange-2.png', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('orange', ser.rule);
+            console.log(neiron.fruit);
+        });
+
+        let imgCtxOrange3 = new ImageCtx('convas');
+        imgCtxOrange3.initFromUrl('/assets/img/orange-3.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('orange', ser.rule);
             console.log(neiron.fruit);
         });
     });

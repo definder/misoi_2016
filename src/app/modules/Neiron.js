@@ -1,3 +1,5 @@
+import _foreach from 'lodash/forEach';
+
 export default class Neiron {
 
     fruit = {};
@@ -17,7 +19,27 @@ export default class Neiron {
     }
 
     search(rule){
-        console.log('Search fruit', rule);
+        var candidate = {
+            factor: 1000,
+            color: 1000,
+            name: '',
+        };
+        _foreach(this.fruit, (fruit, key)=>{
+            _foreach(fruit, (value)=>{
+                let _color = Math.abs(value.color.red - rule.color.red)
+                    + Math.abs(value.color.green - rule.color.green)
+                    + Math.abs(value.color.blue - rule.color.blue);
+                if(candidate.factor > Math.abs(value.factor - rule.factor)
+                    && candidate.color > _color){
+                    candidate.factor = Math.abs(value.factor - rule.factor);
+                    candidate.color = _color;
+                    console.log(key, (Math.abs(value.factor - rule.factor)), _color);
+                    candidate.name = key;
+                }
+            })
+        });
+        console.log(candidate);
+        return candidate.name;
     }
 
 }

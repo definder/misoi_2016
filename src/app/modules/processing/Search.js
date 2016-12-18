@@ -5,6 +5,7 @@ import Otsu from '../filter/methods/Otsu';
 import Morphy from './Morphology';
 import FilterInterface from '../filter/interface/FilterInterface';
 import _foreach from 'lodash/forEach';
+import _find from 'lodash/find';
 
 export default class Search extends FilterInterface {
 
@@ -169,7 +170,7 @@ export default class Search extends FilterInterface {
                         let _height = height;
                         let _width = secondContourX - firstContourX;
                         this.rule = {
-                            factor: _width - _height <= 0
+                            factor: _height - _width <= 0
                                 ? Math.abs(_height / _width)
                                 : Math.abs(_width / _height),
                             color: this.colorRule(
@@ -179,7 +180,6 @@ export default class Search extends FilterInterface {
                                 objectSquare.maxX - secondContourX
                             )
                         };
-                        console.log(this.rule);
                         return;
                     }
                 }
@@ -351,13 +351,14 @@ export default class Search extends FilterInterface {
 
     mergeClasses() {
         this.square.forEach((currentSquare, key) => {
-            var width = Math.round((currentSquare.maxX - currentSquare.minX) / 2);
-            var height = Math.round((currentSquare.maxY - currentSquare.minY) / 2);
+            var width = Math.round((currentSquare.maxX - currentSquare.minX) / 20);
+            var height = Math.round((currentSquare.maxY - currentSquare.minY) / 20);
             this.square.forEach((nextSquare, index) => {
                 if ((index !== key) && ((nextSquare.minX >= (currentSquare.minX - width) && nextSquare.minX <= (currentSquare.maxX + width))
                     || (nextSquare.maxX >= (currentSquare.minX - width) && nextSquare.maxX <= (currentSquare.maxX + width)))
                     && ((nextSquare.minY >= (currentSquare.minY - height) && nextSquare.minY <= (currentSquare.maxY + height))
-                    || (nextSquare.maxY >= (currentSquare.minY - height) && nextSquare.maxY <= (currentSquare.maxY + height)))) {
+                    || (nextSquare.maxY >= (currentSquare.minY - height) && nextSquare.maxY <= (currentSquare.maxY + height)))
+                    ) {
                     if (currentSquare.minX >= nextSquare.minX) {
                         this.square[key].minX = nextSquare.minX;
                     }
@@ -370,7 +371,7 @@ export default class Search extends FilterInterface {
                     if (currentSquare.maxY <= nextSquare.maxY) {
                         this.square[key].maxY = nextSquare.maxY;
                     }
-                    if (this.isRemovedSquares.indexOf(index) === -1) {
+                    if (this.isRemovedSquares.indexOf(index) === -1 && this.isRemovedSquares.indexOf(key) == -1) {
                         this.isRemovedSquares.push(index);
                     }
                 }
