@@ -93,4 +93,9 @@ document.addEventListener("DOMContentLoaded", event => {
         var r = ser.select();
         imgCtx.putImage(r);
     });
+
+    var e3 = document.getElementById('btn3');
+    e3.addEventListener('click', ()=>{
+        
+    });
 });
