@@ -136,14 +136,6 @@ document.addEventListener("DOMContentLoaded", event => {
             neiron.teach('apple', ser.rule);
             console.log(neiron.fruit);
         });
-        let imgCtxApple4 = new ImageCtx('convas');
-        imgCtxApple4.initFromUrl('/assets/img/apple-4.jpg', (_imgCtx)=>{
-            let ser = new Search(_imgCtx.imageData);
-            ser.run();
-            ser.select();
-            neiron.teach('apple', ser.rule);
-            console.log(neiron.fruit);
-        });
         let imgCtxApple5 = new ImageCtx('convas');
         imgCtxApple5.initFromUrl('/assets/img/apple-5.png', (_imgCtx)=>{
             let ser = new Search(_imgCtx.imageData);
@@ -175,6 +167,51 @@ document.addEventListener("DOMContentLoaded", event => {
             ser.run();
             ser.select();
             neiron.teach('orange', ser.rule);
+            console.log(neiron.fruit);
+        });
+
+        let imgCtxBanana1 = new ImageCtx('convas');
+        imgCtxBanana1.initFromUrl('/assets/img/banana-1.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('banana', ser.rule);
+            console.log(neiron.fruit);
+        });
+
+        let imgCtxBanana2 = new ImageCtx('convas');
+        imgCtxBanana2.initFromUrl('/assets/img/banana-2.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('banana', ser.rule);
+            console.log(neiron.fruit);
+        });
+
+        let imgCtxBanana3 = new ImageCtx('convas');
+        imgCtxBanana3.initFromUrl('/assets/img/banana-3.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('banana', ser.rule);
+            console.log(neiron.fruit);
+        });
+
+        let imgCtxBanana4 = new ImageCtx('convas');
+        imgCtxBanana4.initFromUrl('/assets/img/banana-4.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('banana', ser.rule);
+            console.log(neiron.fruit);
+        });
+
+        let imgCtxBanana5 = new ImageCtx('convas');
+        imgCtxBanana5.initFromUrl('/assets/img/banana-5.jpg', (_imgCtx)=>{
+            let ser = new Search(_imgCtx.imageData);
+            ser.run();
+            ser.select();
+            neiron.teach('banana', ser.rule);
             console.log(neiron.fruit);
         });
     });

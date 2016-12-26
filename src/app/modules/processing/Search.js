@@ -169,6 +169,7 @@ export default class Search extends FilterInterface {
                         secondContourX = X;
                         let _height = height;
                         let _width = secondContourX - firstContourX;
+                        console.log(_height, _width);
                         this.rule = {
                             factor: _height - _width <= 0
                                 ? Math.abs(_height / _width)

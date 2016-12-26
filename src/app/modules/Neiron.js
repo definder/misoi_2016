@@ -5,7 +5,7 @@ export default class Neiron {
     fruit = {};
     coeficent = {
         factor: 1,
-        color: 2,
+        color: 3,
     };
 
     teach(fruit, rule){
@@ -61,9 +61,10 @@ export default class Neiron {
             value: 0,
             name: 'HZ',
         };
-        console.log(candidatesNew);
+        console.log(candidatesNew, (75 * (this.coeficent.factor + this.coeficent.color)));
         _foreach(candidatesNew, (value,key)=>{
-            if(candidate.value < ((value.factor * this.coeficent.factor) + (value.color * this.coeficent.color))){
+            let cond = ((value.factor * this.coeficent.factor) + (value.color * this.coeficent.color));
+            if(candidate.value < cond && (cond > (75 * (this.coeficent.factor + this.coeficent.color)))){
                 candidate.value = ((value.factor * this.coeficent.factor) + (value.color * this.coeficent.color));
                 candidate.name = key;
             }
